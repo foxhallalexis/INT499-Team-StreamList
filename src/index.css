@@ -8,8 +8,34 @@
 
 :root {
   font-family: "Inter", sans-serif;
-  color: #f5f5f5;
-  background-color: #0d0d0f;
+  
+  /* Backgrounds */
+  --bg-main: #0b0b10;
+  --bg-secondary: #111019;
+  --bg-card: #181622;
+  --bg-card-hover: #201d2c;
+
+  /* Primary */
+  --purple: #8b5cf6;
+  --purple-light: #a78bfa;
+  --purple-dark: #6d3fe5;
+
+  /* Accent Colors */
+  --blue: #4f8cff;
+  --green: #38d6b0;
+  --green-soft: #65d6a6;
+
+  /* Text */
+  --text-primary: #f7f7fb;
+  --text-secondary: #5bb4c2;
+  --text-muted: #858493;
+
+  /* Borders */
+  --border: #302c3d;
+  --border-purple: #62479b;
+
+  color: var(--text-primary);
+  background-color: var(--bg-main);
 }
 
 html,

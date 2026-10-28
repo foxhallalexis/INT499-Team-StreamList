@@ -234,6 +234,24 @@ button,
   .movie-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    flex-direction: column;
+  }
+
+  .cart-item-actions {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .cart-summary {
+    width: 100%;
+  }
 }
 
 @media (max-width: 550px) {
@@ -265,4 +283,373 @@ button,
 
 .page-container p:not(.eyebrow) {
   color: #aaaab3;
+}
+
+/* =========================
+   SUBSCRIPTIONS
+========================= */
+
+.subscriptions-page {
+  width: 100%;
+  min-height: calc(100vh - 72px);
+  padding: 55px 8% 80px;
+
+  background:
+    radial-gradient(
+      circle at top right, 
+      rgba(139, 92, 246, 0.10),
+      transparent 35%
+    ),
+    var(--bg-main);
+}
+
+.subscriptions-header {
+  max-width: 700px;
+  margin-bottom: 45px;
+}
+
+.subscriptions-header h1 {
+  margin-bottom: 14px;
+  font-size: clamp(2.4rem, 5vm, 4rem);
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.subscription-intro {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.subscription-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.subscription-card {
+  position: relative;
+  min-height: 360px;
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+ 
+  background: linear-gradient(
+    145deg,
+    var(--bg-card) 0%,
+    var(--bg-secondary) 100%
+  );
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  transition: 
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.subscription-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--purple);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0, 0.30),
+    0 0 25px rgba(139, 92, 246, 0.10);
+}
+
+.plan-label {
+  margin-bottom: 14px;
+  color: var(--purple-light);
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.subscription-card h2 {
+  margin-bottom: 14px;
+  color: var(--text-primary);
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.6rem;
+}
+
+.plan-description {
+  margin-bottom: 30px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.plan-price {
+  margin-top: auto;
+  margin-bottom: 22px;
+
+  color: var(--text-primary);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.subscription-button {
+  width: 100%;
+  padding: 13px 18px;
+
+  border: 1px solid var(--purple);
+  border-radius: 7px;
+  
+  background-color: var(--purple);
+  color: white;
+  
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.subscription-button:hover {
+  background-color: var(--purple-light);
+  border-color: var(--purple-light);
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.30);
+}
+
+.featured-plan {
+  border-color: var(--purple);
+
+  background: linear-gradient(
+    145deg,
+    rgba(139, 92, 246, 0.14),
+    var(--bg-card) 45%,
+    var(--bg-secondary) 100%
+  );
+}
+
+.popular-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 6px 10px;
+  color: white;
+  background-color: var(--purple-dark);
+  border-radius: 20px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-page {
+  width: 100%;
+  min-height: calc(100vh - 72px);
+  padding: 55px 8% 80px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(79, 140, 255, 0.08),
+      transparent 35%
+    ),
+    var(--bg-main);
+}
+
+.cart-header {
+  margin-bottom: 40px;
+}
+
+.cart-header h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2.4rem, 5vm, 4rem);
+  color: var(--text-primary);
+}
+
+.cart-intro {
+  color: var(--text-secondary);
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+
+/* Cart items */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cart-item {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cart-item:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+
+.cart-item-type {
+  margin-bottom: 7px;
+  color: var(--purple-light);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.cart-item-info h2 {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 1.3rem;
+}
+
+.cart-item-description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Price and Remove button */
+.cart-item-actions {
+  min-width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.cart-item-price {
+  color: var(--text-primary);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.remove-button {
+  padding: 7px 12px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  color: var(--text-primary);
+  border-color: var(--purple-light);
+}
+
+/* Quantity controls */
+.quantity-control button {
+  width: 38px;
+  height: 36px;
+  border: none;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+}
+
+.quantity-control button:hover {
+  background-color: var(--purple-dark);
+}
+
+.quantity-control span {
+  min-width: 42px;
+  text-align: center;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Order Summary */
+.cart-summary {
+  padding: 27px;
+  background: linear-gradient(
+    145deg,
+    var(--bg-card),
+    var(--bg-secondary)
+  );
+  border: 1px solid var(--border-purple);
+  border-radius: 12px;
+}
+
+.summary-label {
+  margin-bottom: 25px;
+  color: var(--purple-light);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary);
+}
+
+.summary-divider {
+  height: 1px;
+  margin: 22px 0;
+  background-color: var(--border);
+}
+
+.total-row {
+  margin-bottom: 25px;
+  color: var(--text-primary);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Checkout button */
+.checkout-button {
+  width: 100%;
+  padding: 13px;
+  color: #ffffff;
+  background-color: var(--purple);
+  border: none;
+  border-radius: 7px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.checkout-button:hover {
+  background-color: var(--purple-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.25);
+}
+
+.summary-note {
+  margin-top: 15px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-align: center;
 }

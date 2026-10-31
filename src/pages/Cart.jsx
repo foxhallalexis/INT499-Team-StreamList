@@ -1,4 +1,10 @@
-function Cart() {
+function Cart({ cart, onRemove, onQuantityChange }) {
+  const itemCount = cart.reduce((count, item) => count + item.quantity, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
   return (
     <main className="cart-page">
       <section className="cart-header">
@@ -10,48 +16,54 @@ function Cart() {
       </section>
 
       <div className="cart-layout">
-
         <section className="cart-items">
+          {cart.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            cart.map((item) => (
+              <div className="cart-item" key={item.id}>
+                <div className="cart-item-info">
+                  <p className="cart-item-type">{item.type}</p>
+                  <h2>{item.name}</h2>
+                  <p className="cart-item-description">
+                    ${item.price.toFixed(2)} each
+                  </p>
+                  {item.type === "subscription" ? (
+                    <p>Quantity: 1</p>
+                  ) : (
+                    <div className="quantity-control">
+                      <button
+                        aria-label={`Decrease ${item.name} quantity`}
+                        onClick={() => onQuantityChange(item.id, -1)}
+                        disabled={item.quantity <= 1}
+                      >
+                        −
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        aria-label={`Increase ${item.name} quantity`}
+                        onClick={() => onQuantityChange(item.id, 1)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
+                </div>
 
-          <div className="cart-item">
-            <div className="cart-item-info">
-              <p className="cart-item-type">SUBSCRIPTION</p>
-              <h2>StreamList Plus</h2>
-              <p className="cart-item-description">
-                Your selected streaming plan.
-              </p>
-            </div>
-
-            <div className="cart-item-actions">
-              <span className="cart-item-price">$0.00</span>
-
-              <button className="remove-button">
-                Remove
-              </button>
-            </div>
-          </div>
-
-          <div className="cart-item">
-            <div className="cart-item-info">
-              <p className="cart-item-type">ACCESSORY</p>
-              <h2>EZTech Accessory</h2>
-
-              <div className="quantity-control">
-                <button aria-label="Decrease quantity">−</button>
-                <span>1</span>
-                <button aria-label="Increase quantity">+</button>
+                <div className="cart-item-actions">
+                  <span className="cart-item-price">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </span>
+                  <button
+                    className="remove-button"
+                    onClick={() => onRemove(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-
-            <div className="cart-item-actions">
-              <span className="cart-item-price">$0.00</span>
-
-              <button className="remove-button">
-                Remove
-              </button>
-            </div>
-          </div>
-
+            ))
+          )}
         </section>
 
         <aside className="cart-summary">
@@ -59,14 +71,14 @@ function Cart() {
 
           <div className="summary-row">
             <span>Items</span>
-            <span>2</span>
+            <span>{itemCount}</span>
           </div>
 
           <div className="summary-divider"></div>
 
           <div className="summary-row total-row">
             <span>Total</span>
-            <span>$0.00</span>
+            <span>${total.toFixed(2)}</span>
           </div>
 
           <button className="checkout-button">

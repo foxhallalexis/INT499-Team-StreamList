@@ -1,4 +1,13 @@
-function Subscriptions () {
+import { useState } from "react";
+import subscriptionPlans from "../Data";
+
+function Subscriptions({ cart, onAddToCart }) {
+    const [message, setMessage] = useState("");
+
+    const handleAddToCart = (plan) => {
+        setMessage(onAddToCart(plan));
+    };
+
     return (
         <main className="subscriptions-page">
             <section className="page-header">
@@ -6,33 +15,32 @@ function Subscriptions () {
                 <h1>Choose Your Subscription</h1>
 
                 <p>Find the plan that fits your movie nights.</p>
+                {message && <p role="status" aria-live="polite">{message}</p>}
             </section>
 
             <section className="subscription-grid">
-                <div className="subscription-card">
-                    <p className="plan-label">BASIC</p>
-                    <h2>StreamList Basic</h2>
+                {subscriptionPlans.map((plan) => {
+                    const isInCart = cart.some((item) => item.id === plan.id);
 
-                    <p className="plan-description">A simple option for movie lovers getting started.</p>
-                    <div className="plan-price">$0.00</div>
-                    <button className="primary-button">Add to Cart</button>
-                </div>
-
-                <div className="subscription-card featured-plan">
-                    <p className="plan-label">POPULAR</p>
-                    <h2>StreamList Plus</h2>
-                    <p className="plan-description">More features for your everyday streaming experience.</p>
-                    <div className="plan-price">$2.00</div>
-                    <button className="primary-button">Add to Cart</button>
-                </div>
-
-                <div className="subscription-card">
-                    <p className="plan-label">PREMIUM</p>
-                    <h2>StreamList Premium</h2>
-                    <p className="plan-description">The complete StreamList experience.</p>
-                    <div className="plan-price">$5.00</div>
-                    <button className="primary-button">Add to Cart</button>
-                </div>
+                    return (
+                        <div
+                            className={`subscription-card${plan.featured ? " featured-plan" : ""}`}
+                            key={plan.id}
+                        >
+                            <p className="plan-label">{plan.label}</p>
+                            <h2>{plan.name}</h2>
+                            <p className="plan-description">{plan.description}</p>
+                            <div className="plan-price">${plan.price.toFixed(2)}</div>
+                            <button
+                                className="primary-button"
+                                onClick={() => handleAddToCart(plan)}
+                                disabled={isInCart}
+                            >
+                                {isInCart ? "Added to Cart" : "Add to Cart"}
+                            </button>
+                        </div>
+                    );
+                })}
             </section>
         </main>
     )

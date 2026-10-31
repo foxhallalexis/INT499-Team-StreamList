@@ -1,9 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
-  const navClass = ({ isActive }) =>
-    isActive ? "nav-link active" : "nav-link";
-
+function Navbar({ cartCount = 0 }) {
   return (
     <nav className="navbar">
       <NavLink to="/" className="navbar-brand">
@@ -33,7 +30,7 @@ function Navbar() {
         <NavLink to="/cart" className={({ isActive }) =>
         isActive ? "cart-link active-cart" : "cart-link"
         }>
-          Cart <span className="cart-count">0</span>
+          Cart <span className="cart-count">{cartCount}</span>
         </NavLink>
       </div>
     </nav>

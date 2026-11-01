@@ -3,14 +3,19 @@ import subscriptionPlans from "../Data";
 
 function Subscriptions({ cart, onAddToCart }) {
     const [message, setMessage] = useState("");
-
+    const subscriptions = subscriptionPlans.filter(
+        (item) => item.type === "subscription"
+    );
+    const merch = subscriptionPlans.filter(
+        (item) => item.type === "merch"
+    );
     const handleAddToCart = (plan) => {
         setMessage(onAddToCart(plan));
     };
 
     return (
         <main className="subscriptions-page">
-            <section className="page-header">
+            <section className="subscription-header">
                 <p className="eyebrow">STREAM YOUR WAY</p>
                 <h1>Choose Your Subscription</h1>
 
@@ -19,7 +24,7 @@ function Subscriptions({ cart, onAddToCart }) {
             </section>
 
             <section className="subscription-grid">
-                {subscriptionPlans.map((plan) => {
+                {subscriptions.map((plan) => {
                     const isInCart = cart.some((item) => item.id === plan.id);
 
                     return (
@@ -27,12 +32,16 @@ function Subscriptions({ cart, onAddToCart }) {
                             className={`subscription-card${plan.featured ? " featured-plan" : ""}`}
                             key={plan.id}
                         >
-                            <p className="plan-label">{plan.label}</p>
-                            <h2>{plan.name}</h2>
-                            <p className="plan-description">{plan.description}</p>
+                            <img
+                                src={plan.img}
+                                alt={plan.service}
+                                className="subscription-image"
+                            />
+                            <h2>{plan.service}</h2>
+                            <p className="plan-description">{plan.serviceInfo}</p>
                             <div className="plan-price">${plan.price.toFixed(2)}</div>
                             <button
-                                className="primary-button"
+                                className="subscription-button"
                                 onClick={() => handleAddToCart(plan)}
                                 disabled={isInCart}
                             >
@@ -41,6 +50,42 @@ function Subscriptions({ cart, onAddToCart }) {
                         </div>
                     );
                 })}
+                <section className="merch-grid">
+                    <div className="merch-header">
+                        <p className="eyebrow">MAKE IT YOURS</p>
+                        <h2>Add Extras to Your Cart</h2>
+                        <p>Grab some EZ Tech merch to go with your subscription!</p>
+                    </div>
+                    <div className="merch-grid">
+                        {merch.map((item) => {
+                            const isInCart = cart.some(
+                                (cartItem) => cartItem.id === item.id
+                            );
+                            return (
+                                <div
+                                    className={`merch-card${isInCart ? " in-cart" : ""}`}
+                                    key={item.id}
+                                >
+                                    <img
+                                        src={item.img}
+                                        alt={item.service}
+                                        className="merch-image"
+                                    />
+                                    <h3>{item.service}</h3>
+                                    <p className="merch-description">{item.serviceInfo}</p>
+                                    <div className="merch-price">${item.price.toFixed(2)}</div>
+                                    <button
+                                        className="subscription-button"
+                                        onClick={() => handleAddToCart(item)}
+                                        disabled={isInCart}
+                                    >
+                                        {isInCart ? "Added to Cart" : "Add to Cart"}
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
             </section>
         </main>
     )
